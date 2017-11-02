@@ -238,7 +238,14 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
 }
 
 - (void)setLeftButtonHidden:(BOOL)hidden animated:(BOOL)animated {
-  [self.textInputbar setLeftButtonHidden:hidden animated:animated];
+    [self.textInputbar setLeftButtonHidden:hidden animated:animated];
+}
+
+- (void)viewSafeAreaInsetsDidChange
+{
+    [super viewSafeAreaInsetsDidChange];
+    
+    [self slk_updateViewConstraints];
 }
 
 
@@ -424,7 +431,7 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
 
 - (CGFloat)slk_appropriateBottomMargin
 {
-    // A bottom margin is required only if the view is extended out of it bounds
+    // A bottom margin is required if the view is extended out of it bounds
     if ((self.edgesForExtendedLayout & UIRectEdgeBottom) > 0) {
         
         UITabBar *tabBar = self.tabBarController.tabBar;
@@ -432,6 +439,13 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
         // Considers the bottom tab bar, unless it will be hidden
         if (tabBar && !tabBar.hidden && !self.hidesBottomBarWhenPushed) {
             return CGRectGetHeight(tabBar.frame);
+        }
+    }
+    
+    // A bottom margin is required for iPhone X
+    if (@available(iOS 11.0, *)) {
+        if (!self.textInputbar.isHidden) {
+            return self.view.safeAreaInsets.bottom;
         }
     }
     
@@ -903,6 +917,10 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
     }
     
     _textInputbar.hidden = hidden;
+
+    if (@available(iOS 11.0, *)) {
+        [self viewSafeAreaInsetsDidChange];
+    }
     
     __weak typeof(self) weakSelf = self;
     
@@ -2253,7 +2271,7 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
     NSDictionary *views = @{@"scrollView": self.scrollViewProxy,
                             @"autoCompletionView": self.autoCompletionView,
                             @"typingIndicatorView": self.typingIndicatorProxyView,
-                            @"textInputbar": self.textInputbar,
+                            @"textInputbar": self.textInputbar
                             };
     
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[scrollView(0@750)][typingIndicatorView(0)]-0@999-[textInputbar(0)]|" options:0 metrics:nil views:views]];

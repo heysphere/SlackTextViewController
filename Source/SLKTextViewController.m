@@ -915,12 +915,12 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
     if (self.isTextInputbarHidden == hidden) {
         return;
     }
-    
-    _textInputbar.hidden = hidden;
-
+  
     if (@available(iOS 11.0, *)) {
-        [self viewSafeAreaInsetsDidChange];
+      [self viewSafeAreaInsetsDidChange];
     }
+  
+    _textInputbar.hidden = hidden;
     
     __weak typeof(self) weakSelf = self;
     

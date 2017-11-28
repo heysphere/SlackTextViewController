@@ -45,12 +45,19 @@ NS_ASSUME_NONNULL_BEGIN
 /** The left action button action. */
 @property (nonatomic, strong) UIButton *leftButton;
 
+/** The left action button action. */
+@property (nonatomic, strong) UIButton *secondLeftButton;
+
 /** The right action button action. */
 @property (nonatomic, strong) UIButton *rightButton;
 
 @property (nonatomic, strong, nullable) UIImage * image;
 
+@property (nonatomic, strong, nullable) UIImage * secondImage;
+
 @property (nonatomic, strong) UIImageView *imageView;
+
+@property (nonatomic, strong) UIImageView *secondImageView;
 
 /** YES if the right button should be hidden animatedly in case the text view has no text in it. Default is YES. */
 @property (nonatomic, readwrite) BOOL autoHideRightButton;
@@ -70,6 +77,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) UIButton *imageCloseButton;
 
 - (void)setLeftButtonHidden:(BOOL)hidden animated:(BOOL)animated;
+
+- (void)setSecondLeftButtonHidden:(BOOL)hidden animated:(BOOL)animated;
 
 
 #pragma mark - Initialization

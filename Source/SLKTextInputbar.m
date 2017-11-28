@@ -91,16 +91,16 @@ NSString * const SLKTextInputbarDidMoveNotification =   @"SLKTextInputbarDidMove
     self.autoHideRightButton = YES;
     self.editorContentViewHeight = 38.0;
     self.contentInset = UIEdgeInsetsMake(5.0, 8.0, 5.0, 8.0);
-    
-    [self addSubview:self.editorContentView];
-    [self addSubview:self.leftButton];
-    [self addSubview:self.secondLeftButton];
-    [self addSubview:self.rightButton];
-    [self addSubview:self.textView];
-    [self addSubview:self.charCountLabel];
-    [self addSubview:self.contentView];
+
     [self addSubview:self.imageView];
-    
+    [self addSubview:self.contentView];
+    [self addSubview:self.charCountLabel];
+    [self addSubview:self.textView];
+    [self addSubview:self.rightButton];
+    [self addSubview:self.secondLeftButton];
+    [self addSubview:self.leftButton];
+    [self addSubview:self.editorContentView];
+  
     [self slk_setupViewConstraints];
     [self slk_updateConstraintConstants];
     
